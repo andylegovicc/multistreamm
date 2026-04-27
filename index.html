@@ -5,142 +5,53 @@
 <title>PDC Multistream</title>
 
 <style>
-body {
-  margin: 0;
-  background: #0e0e0e;
-  font-family: Arial, sans-serif;
-}
+  body {
+    margin: 0;
+    background: #111;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 50vh 50vh;
+    gap: 4px;
+  }
 
-/* TOP BAR */
-.controls {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: #111;
-  padding: 8px;
-  z-index: 10;
-  display: flex;
-  gap: 10px;
-}
+  .frame {
+    position: relative;
+    overflow: hidden;
+  }
 
-button {
-  padding: 6px 10px;
-  background: #222;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
 
-/* GRID */
-.grid {
-  margin-top: 50px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 50vh);
-  gap: 5px;
-}
+    /* KEY PART (balanced zoom fix) */
+    width: 125%;
+    height: 125%;
+    transform: scale(0.8);
+    transform-origin: top left;
 
-.grid.big {
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 50vh 50vh;
-}
-
-/* FRAME */
-.frame {
-  position: relative;
-  overflow: hidden;
-  border: 2px solid transparent;
-}
-
-.frame.active {
-  border: 2px solid red;
-}
-
-/* IFRAME */
-iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  border: none;
-
-  width: 125%;
-  height: 125%;
-  transform: scale(0.8);
-  transform-origin: top left;
-}
-
-/* SLIDER */
-.slider {
-  position: absolute;
-  bottom: 5px;
-  left: 5px;
-  width: 120px;
-}
+    border: none;
+  }
 </style>
 </head>
 
 <body>
 
-<div class="controls">
-  <button onclick="setGrid()">2x2 Grid</button>
-  <button onclick="setBig()">1 Big + 3</button>
-</div>
-
-<div class="grid" id="grid">
-
-  <!-- STREAM 1 -->
-  <div class="frame" onclick="focusFrame(this)">
+  <div class="frame">
     <iframe src="https://www.pdc.tv/live/764fe0dc-11be-4ec3-9567-b80d85db0d8a"></iframe>
-    <input class="slider" type="range" min="0.6" max="1" step="0.02" value="0.8"
-      oninput="zoom(this)">
   </div>
 
-  <!-- STREAM 2 -->
-  <div class="frame" onclick="focusFrame(this)">
+  <div class="frame">
     <iframe src="https://www.pdc.tv/live/f9ee0e22-8ddb-4e0b-81cc-c9850eae0eb5"></iframe>
-    <input class="slider" type="range" min="0.6" max="1" step="0.02" value="0.8"
-      oninput="zoom(this)">
   </div>
 
-  <!-- STREAM 3 -->
-  <div class="frame" onclick="focusFrame(this)">
+  <div class="frame">
     <iframe src="https://www.pdc.tv/live/ae28afb0-6a60-4208-a2b8-22bb0a7f2221"></iframe>
-    <input class="slider" type="range" min="0.6" max="1" step="0.02" value="0.8"
-      oninput="zoom(this)">
   </div>
 
-  <!-- STREAM 4 -->
-  <div class="frame" onclick="focusFrame(this)">
+  <div class="frame">
     <iframe src="https://www.pdc.tv/live/9deb5734-be88-4c6a-9520-b9d77419bb8d"></iframe>
-    <input class="slider" type="range" min="0.6" max="1" step="0.02" value="0.8"
-      oninput="zoom(this)">
   </div>
-
-</div>
-
-<script>
-function zoom(slider) {
-  let iframe = slider.parentElement.querySelector("iframe");
-  let scale = slider.value;
-
-  iframe.style.transform = `scale(${scale})`;
-  iframe.style.width = (100 / scale) + "%";
-  iframe.style.height = (100 / scale) + "%";
-}
-
-function focusFrame(el) {
-  document.querySelectorAll('.frame').forEach(f => f.classList.remove('active'));
-  el.classList.add('active');
-}
-
-function setGrid() {
-  document.getElementById("grid").classList.remove("big");
-}
-
-function setBig() {
-  document.getElementById("grid").classList.add("big");
-}
-</script>
 
 </body>
 </html>
