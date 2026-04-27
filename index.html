@@ -7,27 +7,30 @@
 <style>
   body {
     margin: 0;
-    background: #111;
+    background: #000;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 50vh 50vh;
-    gap: 4px;
+    gap: 2px;
   }
 
   .frame {
     position: relative;
     overflow: hidden;
+    background: black;
   }
 
   iframe {
     position: absolute;
-    top: 0;
-    left: 0;
 
-    /* KEY PART (balanced zoom fix) */
-    width: 125%;
-    height: 125%;
-    transform: scale(0.8);
+    /* tuned for PDC player */
+    top: -4%;
+    left: -2%;
+
+    width: 126%;
+    height: 126%;
+
+    transform: scale(0.79);
     transform-origin: top left;
 
     border: none;
